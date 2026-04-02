@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Backend
-        working-directory: backend/zz-spring-boot-in-10-steps
+        working-directory: zz-spring-boot-in-10-steps
         run: mvn clean package -DskipTests
 
       - name: Build Frontend
