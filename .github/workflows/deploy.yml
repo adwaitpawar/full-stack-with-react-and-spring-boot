@@ -9,27 +9,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Build Backend
-      run: |
-        cd backend
-        mvn clean package -DskipTests
+      - name: Build Backend
+        working-directory: backend/zz-spring-boot-in-10-steps
+        run: mvn clean package -DskipTests
 
-    - name: Build Frontend
-      run: |
-        cd frontend
-        npm install
-        npm run build
+      - name: Build Frontend
+        working-directory: frontend
+        run: |
+          npm install
+          npm run build
 
-    - name: Build Docker Images
-      run: |
-        docker build -t adwaitpawar/backend ./backend
-        docker build -t adwaitpawar/frontend ./frontend
+      - name: Build Docker Images
+        run: |
+          docker build -t adwaitpawar/backend ./backend
+          docker build -t adwaitpawar/frontend ./frontend
 
-    - name: Push to DockerHub
-      run: |
-        docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
-        docker push adwaitpawar/backend
-        docker push adwaitpawar/frontend
+      - name: Push to DockerHub
+        run: |
+          docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
+          docker push adwaitpawar/backend
+          docker push adwaitpawar/frontend
