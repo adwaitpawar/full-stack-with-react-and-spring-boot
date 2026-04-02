@@ -16,6 +16,9 @@ jobs:
         working-directory: zz-spring-boot-in-10-steps
         run: mvn clean package -DskipTests
 
+      - name: Debug folders
+        run: ls -R 
+
       - name: Build Frontend
         working-directory: todo-frontend
         run: |
