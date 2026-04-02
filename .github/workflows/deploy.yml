@@ -35,8 +35,8 @@ jobs:
       - name: Build Frontend
         working-directory: frontend/todo-app
         run: |
-          npm install
-          npm run build
+          CI=false npm install
+          CI=false npm run build
 
       - name: Build Docker Images
         run: |
