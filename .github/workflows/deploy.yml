@@ -17,7 +17,7 @@ jobs:
         run: mvn clean package -DskipTests
 
       - name: Build Frontend
-        working-directory: frontend
+        working-directory: todo-frontend
         run: |
           npm install
           npm run build
