@@ -20,7 +20,7 @@ jobs:
         run: ls -R 
 
       - name: Build Frontend
-        working-directory: todo-frontend
+        working-directory: frontend/todo-app
         run: |
           npm install
           npm run build
