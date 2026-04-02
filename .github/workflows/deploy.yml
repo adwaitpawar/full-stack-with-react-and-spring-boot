@@ -12,6 +12,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # ✅ ADD THIS (Java for Maven)
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      # ✅ ADD THIS (Node version fix 🔥)
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
       - name: Build Backend
         working-directory: zz-spring-boot-in-10-steps
         run: mvn clean package -DskipTests
@@ -27,11 +40,17 @@ jobs:
 
       - name: Build Docker Images
         run: |
-          docker build -t adwaitpawar/backend ./backend
-          docker build -t adwaitpawar/frontend ./frontend
+          docker build -t adwaitpawar/backend ./zz-spring-boot-in-10-steps
+          docker build -t adwaitpawar/frontend ./frontend/todo-app
+
+      # ✅ Better login method (recommended)
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
 
       - name: Push to DockerHub
         run: |
-          docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASS }}
           docker push adwaitpawar/backend
           docker push adwaitpawar/frontend
